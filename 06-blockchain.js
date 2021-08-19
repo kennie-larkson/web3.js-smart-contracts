@@ -9,8 +9,11 @@ const fromPrivateKeyBuffer = Buffer.from(fromPK, 'hex');
 const toAccount = process.env.NEW_ACCOUNT_ADDRESS_02
 const toPK = process.env.NEW_ACCOUNT_PRIVATE_KEY_02
 
+//format the abi received after compiling the solidity smart contract on remix IDE
 const abi = JSON.parse(process.env.CONTRACT_ABI )
+//create a new contract with the abi and at a smart contract address (existing)
 const contract = new web3.eth.Contract(abi, process.env.SMART_CONTRACT_ADDRESS )
+//the actual transaction which is a transfer of tokens between accounts
 const data = contract.methods.transfer(toAccount, 1000).encodeABI()
 //console.log(data)
 
@@ -50,4 +53,9 @@ const transferSum = async (req, res) => {
      }
   };
   
-  transferSum()
+ // transferSum()
+
+  // get the balance of tokens from the sender account 
+  contract.methods.balanceOf(fromAccount).call((err, tokenBalance) => console.log(tokenBalance))
+   // get the balance of tokens in the receiver account (1000 token transfers was made twice)
+   contract.methods.balanceOf(toAccount).call((err, tokenBalance) => console.log(tokenBalance))
