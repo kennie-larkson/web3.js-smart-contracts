@@ -12,6 +12,7 @@
   "dependencies": {
     "@ethereumjs/tx": "^3.3.0",
     "dotenv": "^10.0.0",
+    "ethereumjs-tx": "^2.1.2",
     "web3": "^1.5.1"
   }
 }
